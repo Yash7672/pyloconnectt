@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="PYLO - Your tasks. Anywhere." />
+    <title>PYLO</title>
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      // Default is DARK when nothing is stored. Only dark/light are allowed.
+      (function () {
+        var t = null;
+        try {
+          t = localStorage.getItem('pylo-theme');
+        } catch (e) {}
+        document.documentElement.setAttribute(
+          'data-theme',
+          t === 'light' ? 'light' : 'dark'
+        );
+      })();
+    </script>
+    <!--
+      Fonts load NON-blocking: a <link rel="stylesheet"> in <head> blocks first
+      paint while the CDN responds, so when fonts.googleapis.com is slow or
+      unreachable the whole site appears stuck/blank. Preload + onload defer
+      the stylesheet until after the app has painted; offline simply falls back
+      to the system font stack in global.css. No visual change when online.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      />
+    </noscript>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
